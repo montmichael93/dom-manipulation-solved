@@ -13,6 +13,7 @@
 
 // Your code goes here...
 
+const allItems = document.getElementsByClassName('item');
 
 
 /**
@@ -24,6 +25,7 @@
 
 // Your code goes here
 
+const main = document.getElementById('main')
 
 
 /**
@@ -34,7 +36,7 @@
  */
 
 // Your code goes here
-
+const favs = document.getElementById('favs')
 
 
 /**
@@ -47,7 +49,30 @@
  */
 
 // Your code goes here
+function updateCollections(id, direction) {
+    
+    const card = document.getElementById(id);
+    const mainClass = 'fa-solid fa-heart-circle-plus'
+    const mainClassList = mainClass.split(' ');
+    const favClass = 'fa-solid fa-heart-crack'
+    const favClassList = favClass.split(' ');
 
+    if (direction === 'toMain') {
+        for (const item of mainClassList) {
+            card.childNodes[1].classList.remove(item)
+        } 
+        for (const item of favClassList){
+            card.childNodes[1].classList.add(item)
+        }
+    } else {
+        for (const item of favClassList) {
+            card.childNodes[1].classList.remove(item)
+        } 
+        for (const item of mainClassList) {
+            card.childNodes[1].classList.add(item)
+        }
+    }
+}
 
 
 /**
@@ -65,5 +90,27 @@
  */
 
 // Your code goes here...
+
+
+
+
+for (const thing of allItems) {
+    const cardCollection = document.getElementById(thing.id);
+    cardCollection.onclick = function(event) {
+    const selectedID = event.target.id;
+    let parentID = event.target.parentNode.id;
+    let currentDir = 'toMain';
+    if (parentID === 'main') {
+        favs.appendChild(thing);
+    } else {
+        currentDir = 'toFavs'
+        main.appendChild(thing);
+    } 
+    updateCollections(selectedID, currentDir)
+}
+}
+
+
+
 
 

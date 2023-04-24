@@ -38,3 +38,50 @@
  */
 
 // Your code goes here...
+
+const allTheCards = document.getElementsByClassName('cardsContainer');
+
+function setBackground() {
+
+    if (localStorage.getItem("favorites")) {
+        let alreadyStored = JSON.parse(localStorage.getItem("favorites"));
+        const allTheBoxes = document.getElementsByClassName('card');
+        for (const boxes of allTheBoxes) {
+            for (const ids of alreadyStored) {
+                if (boxes.id === ids) {
+                    if ((!boxes.style.backgroundColor) ||boxes.style.backgroundColor === 'white') {
+                        boxes.style.backgroundColor = 'red';
+                      } else {
+                        boxes.style.backgroundColor = 'white';
+                      }
+                    }
+                }
+            }
+        }
+    } 
+
+setBackground();
+
+
+  const callbackFn = (e) => {
+    const card = e.target;
+
+    if (!localStorage.getItem("favorites")) {
+        localStorage.setItem("favorites", JSON.stringify(card.id));
+        setBackground();
+        location.reload()
+    } else {
+        let storageData = JSON.parse(localStorage.getItem("favorites"));
+        storageData += `,${card.id}`;
+        localStorage.setItem("favorites", JSON.stringify(storageData));
+    }
+    setBackground();
+    location.reload()
+  };
+
+  const cardContainer = document.getElementsByClassName('cardsContainer')
+  for (const item of cardContainer) {
+    item.addEventListener('click', callbackFn)
+  }
+  
+  

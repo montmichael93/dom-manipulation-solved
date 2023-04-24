@@ -12,7 +12,7 @@
  */
 
 // Your code goes here...
-
+const allItems = document.getElementsByClassName('item');
 
 
 /**
@@ -23,7 +23,7 @@
  */
 
 // Your code goes here...
-
+const sortBtn = document.getElementsByClassName('sortBtn');
 
 
 /**
@@ -38,6 +38,20 @@
  */
 
 // Your code goes here...
+function sortData(direction) {
+    let container = document.getElementById('main');
+    if (direction === 'desc') {
+        allItemsSortReverse = Array.from(allItems).sort((a, b) => b.textContent.localeCompare(a.textContent));
+        allItemsSortReverse.forEach(item => {
+            container.appendChild(item);
+        });
+    } else {
+        allItemsSort = Array.from(allItems).sort((a, b) => a.textContent.localeCompare(b.textContent));
+        allItemsSort.forEach(item => {
+            container.appendChild(item);
+        });
+    }
+}
 
 
 
@@ -50,5 +64,14 @@
  */
 
 // Your code goes here...
+
+for (const item of sortBtn) {
+    item.addEventListener('click', function() {
+        const sortDir = this.dataset.sortdir;
+        sortData(sortDir);
+    });
+}
+
+
 
 
