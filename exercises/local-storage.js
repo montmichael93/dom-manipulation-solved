@@ -44,7 +44,7 @@ const allTheCards = document.getElementsByClassName('cardsContainer');
 function setBackground() {
 
     if (localStorage.getItem("favorites")) {
-        let alreadyStored = JSON.parse(localStorage.getItem("favorites"));
+        let alreadyStored = localStorage.getItem("favorites");
         const allTheBoxes = document.getElementsByClassName('card');
         for (const boxes of allTheBoxes) {
             for (const ids of alreadyStored) {
@@ -63,23 +63,25 @@ function setBackground() {
 setBackground();
 
 
-  const callbackFn = (e) => {
-    const card = e.target;
-
-    if (!localStorage.getItem("favorites")) {
-        localStorage.setItem("favorites", JSON.stringify(card.id));
-        setBackground();
-        location.reload()
-    } else {
-        let storageData = JSON.parse(localStorage.getItem("favorites"));
-        storageData += `,${card.id}`;
-        localStorage.setItem("favorites", JSON.stringify(storageData));
+const callbackFn = (e) => {
+  const card = e.target;
+  const favorites = localStorage.getItem("favorites") || "";
+  if (!favorites.includes(card.id)) {
+    localStorage.setItem("favorites", favorites + (favorites ? "," : "") + card.id);
+  } else {
+    const storageArr = favorites.split(',');
+    const index = storageArr.indexOf(card.id);
+    if (index > -1) {
+      storageArr.splice(index, 1);
+      localStorage.setItem("favorites", storageArr.join(','));
     }
-    setBackground();
-    location.reload()
-  };
+  }
+  setBackground();
+  location.reload();
+};
 
-  const cardContainer = document.getElementsByClassName('cardsContainer')
+
+  const cardContainer = document.getElementsByClassName('card')
   for (const item of cardContainer) {
     item.addEventListener('click', callbackFn)
   }
