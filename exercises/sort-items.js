@@ -39,9 +39,26 @@ const sortBtn = document.getElementsByClassName('sortBtn');
 
 // Your code goes here...
 function sortData(direction) {
+    /*
+    let container = document.getElementById('main');
+    const allItemsSortArr = Array.from(allItems).sort((a,b) =>{
+        const params = direction === 'desc'
+        ? [a, b] : [b, a];
+        params[0].textContent.localeCompare(params[1].textContent)
+    });
+    allItemsSortArr.forEach(item => {
+        container.appendChild(item);
+    }); */
+  
+
+
+
+
+
+    
     let container = document.getElementById('main');
     if (direction === 'desc') {
-        allItemsSortReverse = Array.from(allItems).sort((a,b) =>b.textContent.localeCompare(a.textContent));
+        const allItemsSortReverse = Array.from(allItems).sort((a,b) =>b.textContent.localeCompare(a.textContent));
         allItemsSortReverse.forEach(item => {
             container.appendChild(item);
         });
@@ -50,7 +67,8 @@ function sortData(direction) {
         allItemsSort.forEach(item =>{
             container.appendChild(item);
         });
-    }
+    } 
+
     
 }
 
