@@ -42,25 +42,26 @@
 const allTheCards = document.getElementsByClassName('cardsContainer');
 
 function setBackground() {
-
-    if (localStorage.getItem("favorites")) {
-        let alreadyStored = localStorage.getItem("favorites");
-        const allTheBoxes = document.getElementsByClassName('card');
-        for (const boxes of allTheBoxes) {
-            for (const ids of alreadyStored) {
-                if (boxes.id === ids) {
-                    if ((!boxes.style.backgroundColor) ||boxes.style.backgroundColor === 'white') {
-                        boxes.style.backgroundColor = 'red';
-                      } else {
-                        boxes.style.backgroundColor = 'white';
-                      }
-                    }
-                }
-            }
-        }
-    } 
+  if (localStorage.getItem("favorites")) {
+    let alreadyStored = localStorage.getItem("favorites");
+    const allTheBoxes = document.getElementsByClassName('card');
+      for (const boxes of allTheBoxes) {
+        for (const ids of alreadyStored) {
+        if (boxes.id === ids) {
+          boxes.style.backgroundColor = 'red';
+        } 
+      }
+    }
+  }
+} 
 
 setBackground();
+
+
+function removeBackGround(id) {
+  const allTheBox = document.getElementById(id); 
+  allTheBox .style.backgroundColor = 'white';
+}
 
 
 
@@ -69,25 +70,23 @@ setBackground();
 
 const callbackFn = (e) => {
   const card = e.target;
-
-  
   const favorites = localStorage.getItem("favorites") || "";
   if (!favorites.includes(card.id)) {
     localStorage.setItem("favorites", favorites + (favorites ? "," : "") + card.id);
+    setBackground();
   } else {
     const storageArr = favorites.split(',');
     const index = storageArr.indexOf(card.id);
     if (index > -1) {
       storageArr.splice(index, 1);
       localStorage.setItem("favorites", storageArr.join(','));
+      removeBackGround(card.id)
     }
   }
-  setBackground();
-  location.reload();
 };
 
 
-  const cardContainer = document.getElementsByClassName('card')
+  const cardContainer = document.getElementsByClassName('cardsContainer')
   for (const item of cardContainer) {
     item.addEventListener('click', callbackFn)
   }
