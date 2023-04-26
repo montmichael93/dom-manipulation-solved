@@ -56,19 +56,42 @@ function updateCollections(id, direction) {
     const mainClassList = mainClass.split(' ');
     const favClass = 'fa-solid fa-heart-crack'
     const favClassList = favClass.split(' ');
+
+    /*
     const containers = [mainClassList, favClassList];
     const params = direction === 'toMain'
         ? containers
         : containers.reverse()
-
     params.forEach((parent) => {
         for (const item of parent) {
             card.childNodes[0].classList.remove(item)
         }
 
-    });
+    });*/
+
+    if (direction === 'toMain') {
+        for (const item of mainClassList) {
+            card.childNodes[1].classList.remove(item)
+        }
+        for (const item of favClassList) {
+            card.childNodes[1].classList.add(item)
+        }
+    } else {
+        for (const item of favClassList) {
+            card.childNodes[1].classList.remove(item)
+        }
+        for (const item of mainClassList) {
+            card.childNodes[1].classList.add(item)
+        }
+    }
+
+
+
+  
+
     
-}
+    
+} 
 
 
 /**

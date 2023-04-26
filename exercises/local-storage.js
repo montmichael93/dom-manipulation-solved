@@ -63,8 +63,14 @@ function setBackground() {
 setBackground();
 
 
+
+
+
+
 const callbackFn = (e) => {
   const card = e.target;
+
+  
   const favorites = localStorage.getItem("favorites") || "";
   if (!favorites.includes(card.id)) {
     localStorage.setItem("favorites", favorites + (favorites ? "," : "") + card.id);
